@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">  
+    <title>Trivia!</title>
+
+  </head>
+
+  <body class="fadeIn">
+
+    <!-- The HTML is done for us. -->
+        <div class="container">
+            <h1><span id="timer">Trivia!</span></h1>
+            <br/>
+            <p class="hidden">Time: <span id="pageBeginCountdownText">10 </span> seconds</p>
+            <progress value="10" max="10" class="hidden" id="pageBeginCountdown"></progress>
+            <span id="question_Display">Ready to play?</span></button>            
+            <button id="startButton">Start!</button>
+
+            <button class="button fadeIn" id="button0"><span id="button0_Display">Button0</span></button>
+            <button class="button fadeIn" id="button1"><span id="button1_Display">Button1</span></button>
+            <button class="button fadeIn" id="button2"><span id="button2_Display">Button2</span></button>
+            <button class="button fadeIn" id="button3"><span id="button3_Display">Button3</span></button>
+        </div>
+    <br>
+
+    
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+
+$(document).ready()
+
+    var correct = 0;
+    var incorrect = 0;
+    var unanswered = 0;
+
+
+// Clicking start; initalize the countDownTimer, fade the start button, make 4 buttons appears as place holders for each question.
+    $("#startButton").click(function() { 
+        
+
+
+        var hideStart; 
+        //     hideStart = document.querySelector("#startButton")
+        //     hideStart.classList.add('invisible');
+            hideStart = $("#startButton").addClass('invisible');
+        
+        var displayButtons;
+            displayButtons = $("button");
+            
+            for (var i = 0; i < displayButtons.length; ++i) {
+            displayButtons[i].classList.add('visible');
+            }
+
+        var showProgress; 
+        //     showProgress = document.querySelector(.")
+        //     showProgress.classList.toggle('hidden');
+            showProgress = $(".hidden").removeClass('hidden');
+
+        // var showProgressText; 
+        //     showProgressText = document.querySelector(".hidden")
+        //     showProgressText.classList.toggle('hidden');
+
+
+            //// Progress indicator with count down ////
+            ProgressCountdown(10, 'pageBeginCountdown', 'pageBeginCountdownText').then(value => alert(`Time is up!`));
+
+            function ProgressCountdown(timeleft, bar, text) {
+            return new Promise((resolve, reject) => {
+                var countdownTimer = setInterval(() => {
+                timeleft--;
+
+                document.getElementById(bar).value = timeleft;
+                document.getElementById(text).textContent = timeleft;
+
+                if (timeleft <= 0) {
+                    clearInterval(countdownTimer);
+                    resolve(true);                
+                }
+                }, 1000);
+            });
+            }
+
+    });
+
+
+
+
+//////////      PSEUDOCODE      //////////
+
+// Trivia game with multple choice answers and count down timer for each round, timer stops when guess is made or time runs out.
+// Create varibles; timer, win, lose, unanswered
+// The game begins on a Start page. Once start is clicked than the game begins "initializedGame(), resetRount".
+// initializedGame() set all varibles timer, win, lose, unanswered
+// resetRound will display new questions and possible multple choice answers to click, timer starts counting down from 30 seconds.
+// Only one answer is "true". If true or false or if out of time, stop timer. Display if click matches answer display "Correct!" and
+// display answer and gif for x seconds, resetRound(), else display "Incorrect. The correct answer was:" display answer and gif for x seconds, resetRound(). 
+// 
+//
+// question_Display use switches and array for multiple choice?   [
+//                                                                  q:Question, a:Answer,
+//                                                                  q:Question, a:Answer,
+//                                                                  q:Question, a:Answer,
+//                                                                ]
+// 
+// assign 
+
+
+
+
+
+
+// // Move Captain Planet Leftward  //// Use as template
+//     $(".left-button").on("click", function() { // click on "left-button" perform fucntion
+//     $(".captain-planet").animate({ left: "-=200px" }, "normal"); // Select "captain-planet", move left -200px.
+// });
+
+
+
+
+// Answers to question 1-4
+// $(".answer1").on("click", function() {
+//         // $("$this.")??
+//     });
+
+</script>
+
+</body>
+</html>

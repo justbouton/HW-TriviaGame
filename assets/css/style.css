@@ -1,0 +1,100 @@
+body {
+    background: linear-gradient(rgba(255,255,255,.5), rgba(255, 255, 255, .5)), url("../images/background2.png");
+    width: 960px;
+    padding: 20px;
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+h1 {
+    font-size: 80px;
+    color: white;
+}
+
+.container {
+    padding: 55px;
+    max-width: 750px;
+    height: 600px;
+    margin: 0 auto;
+    padding-top: 50px;
+    display: block;
+    background: rgba(27, 95, 119, 0.9);
+} 
+
+#question_Display {
+    font-size: 40px;
+    display: block;
+    padding: 25px;    
+    color: white;
+}
+
+#startButton {
+    margin-top: 150px;
+    font-size: 40px;
+    padding: 20px;
+    width: 200px;
+    height: 100px;    
+}
+
+.button {
+    bottom: 240px;
+    padding: 10px;
+    width: 600px;
+    height: 60px;
+    margin: 20px auto;
+    display: none;
+}
+
+.fadeIn {  
+
+animation: fadein 2s;
+-moz-animation: fadein 2s; /* Firefox */
+-webkit-animation: fadein 2s; /* Safari and Chrome */
+-o-animation: fadein 2s; /* Opera */
+}
+@keyframes fadein {
+from {
+    opacity:0;
+}
+to {
+    opacity:1;
+}
+}
+@-moz-keyframes fadein { /* Firefox */
+from {
+    opacity:0;
+}
+to {
+    opacity:1;
+}
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+from {
+    opacity:0;
+}
+to {
+    opacity:1;
+}
+}
+@-o-keyframes fadein { /* Opera */
+from {
+    opacity:0;
+}
+to {
+    opacity: 1;
+}
+}
+
+.visible {
+	display: inline;
+}
+
+.invisible {
+    display: none;
+}
+
+.hidden {
+    visibility: hidden;
+}
