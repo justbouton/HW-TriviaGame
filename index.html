@@ -37,12 +37,27 @@
 
 <script type="text/javascript">
 
-
+// Waits until the page has loaded all content before running below:
 $(document).ready()
 
+///// VARIBLES /////
     var correct = 0;
     var incorrect = 0;
     var unanswered = 0;
+
+///// ARRAYS /////  // Array to hold questions, choices, answers
+    questionsArr: { // in random order one of the question below should be pick with matching options and answer.
+    // once the arrays are selected they need to be displayed, 
+// * // create a function random choice array selector.
+// * // create a function to update display.
+        q1: 'If you are shooting a photo and want to get a greater depth of field in the image, would you shoot at: ',
+    };
+    optionsArr: {
+        q1: 'F2.8, F16, F7.1, F4',
+    };
+    answersArr: {
+        q1: 'F16',
+    };
 
 
 // Clicking start; initalize the countDownTimer, fade the start button, make 4 buttons appears as place holders for each question.
@@ -63,16 +78,16 @@ $(document).ready()
             }
 
         var showProgress; 
-        //     showProgress = document.querySelector(.")
-        //     showProgress.classList.toggle('hidden');
+        //     showProgress = document.querySelector(.")    //javascript code
+        //     showProgress.classList.toggle('hidden');    //javascript code
             showProgress = $(".hidden").removeClass('hidden');
 
         // var showProgressText; 
-        //     showProgressText = document.querySelector(".hidden")
-        //     showProgressText.classList.toggle('hidden');
+        //     showProgressText = document.querySelector(".hidden")    //javascript code
+        //     showProgressText.classList.toggle('hidden');           //javascript code
 
 
-            //// Progress indicator with count down ////
+//// Progress indicator with count down ////
             ProgressCountdown(10, 'pageBeginCountdown', 'pageBeginCountdownText').then(value => alert(`Time is up!`));
 
             function ProgressCountdown(timeleft, bar, text) {
@@ -90,6 +105,10 @@ $(document).ready()
                 }, 1000);
             });
             }
+
+///// FUNCTIONS /////
+
+
 
     });
 
