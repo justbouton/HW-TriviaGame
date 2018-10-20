@@ -18,13 +18,13 @@
         <div class="container">
             <h1><span id="timer">Photography Trivia!</span></h1>
             <br/>
-            <p class="hidden">Time: <span id="pageBeginCountdownText">10 </span> seconds</p>
-            <progress value="10" max="10" class="hidden" id="pageBeginCountdown"></progress>
+            <p class="hidden">Time: <span id="pageBeginCountdownText">20 </span> seconds</p>
+            <progress value="20" max="20" class="hidden" id="pageBeginCountdown"></progress>
             <span id="question_Display">Ready to play?</span></button>            
             <button id="startButton">Start!</button>
 
-            <div id="buttonContainer"></div>
-            <!-- <button class="button fadeIn" id="button0"><span id="button0_Display">Button0</span></button>
+            <div id="buttonContainer"></div> <!-- Created dynamic buttons with data -->
+       <!-- <button class="button fadeIn" id="button0"><span id="button0_Display">Button0</span></button>
             <button class="button fadeIn" id="button1"><span id="button1_Display">Button1</span></button>
             <button class="button fadeIn" id="button2"><span id="button2_Display">Button2</span></button>
             <button class="button fadeIn" id="button3"><span id="button3_Display">Button3</span></button> -->
@@ -67,7 +67,7 @@ var questionsArr = [
                     '1/60', 
                     '1/1000', 
                     '1/30'
-			],
+			], 
 			correctIndex: 1
 		},{
 			prompt: '?',
@@ -93,20 +93,10 @@ var questionsArr = [
     //     $("question_Display").replaceWith("questionArr.q1") // display answer in question_Display
     // };
 
-// Once an array set is selected display.
-// * // Create a function that displays all q1 arrs to corrisponding button.
-    // function questionSelection() {
-    //     return questionSelection
-    // }
-// * // Create a function for loop to select q1, q2, etc.
-// * // Create a function to update display.
+// * // TODO a function for loop to select q1, q2, etc.
 
 // * // BONUS create a function random choice array selector q1-q9.
 // * // BONUS add catagories 
-
-
-
-// $("#question_Display").text(questionsArr.q1) // for loop to push each question to button0-3
 
 
 // Clicking start; initalize the countDownTimer, fade the start button, make 4 buttons appears as place holders for each question.
@@ -136,23 +126,25 @@ var questionsArr = [
 
 
 ///// Progress indicator with count down /////
-            // ProgressCountdown(10, 'pageBeginCountdown', 'pageBeginCountdownText').then(value => alert(`Time is up!`));
+            ProgressCountdown(20, 'pageBeginCountdown', 'pageBeginCountdownText').then(value => alert(`Time is up!`));
 
-            // function ProgressCountdown(timeleft, bar, text) {
-            // return new Promise((resolve, reject) => {
-            //     var countdownTimer = setInterval(() => {
-            //     timeleft--;
+            function ProgressCountdown(timeleft, bar, text) {
+            return new Promise((resolve, reject) => {
+                var countdownTimer = setInterval(() => {
+                timeleft--;
 
-            //     document.getElementById(bar).value = timeleft;
-            //     document.getElementById(text).textContent = timeleft;
+                document.getElementById(bar).value = timeleft;
+                document.getElementById(text).textContent = timeleft;
 
-            //     if (timeleft <= 0) {
-            //         clearInterval(countdownTimer);
-            //         resolve(true);                
-            //     }
-            //     }, 1000);
-            // });
-            // }
+                if (timeleft <= 0) {
+                    clearInterval(countdownTimer);
+                    resolve(true);   
+                    // resetRound() // select new set of questions from  
+                    
+                }
+                }, 1000);
+            });
+            }
 
 ///// FUNCTIONS /////
 
@@ -169,26 +161,29 @@ var qArr0 = questionsArr[0].choices //output renderButtons to buttonContainer di
 
 // console.log("line 170: " + qArr0.length)
 
-renderButtons()
+renderButtons() // May need to be moved
     function renderButtons() { // Create 4 buttons with for loop
         var buttons = $("button");
         for (var i = 0; i < qArr0.length; i++) {
-             // Then dynamicaly generating buttons for each item in the array
+            // Then dynamicaly generating buttons for each item in the array
             // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
             // console.log(qArr0[i])
             var a = $("<button>");
             // // Adding a class of movie to our button
             a.addClass("button fadeIn");
-            // // Adding a data-attribute
-            // a.attr("data-name", movies[i]);
             // Providing the initial button text
             a.text(qArr0[i]);
             // Adding the button to the HTML
             $("#buttonContainer").append(a);
         }
     }
+// Add index number to each button to compare with array index
 
-    });
+
+
+
+    }); // Close $("#startButton").click(function()
+
 
 
 
