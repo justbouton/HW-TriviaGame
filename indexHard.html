@@ -18,8 +18,8 @@
         <div class="container">
             <h1><span id="timer">Photography Trivia!</span></h1>
             <br/>
-            <p class="hidden">Time: <span id="pageBeginCountdownText">20 </span> seconds</p>
-            <progress value="20" max="20" class="hidden" id="pageBeginCountdown"></progress>
+            <!-- <p class="hidden">Time: <span id="pageBeginCountdownText">20 </span> seconds</p>
+            <progress value="20" max="20" class="hidden" id="pageBeginCountdown"></progress> -->
             <span id="question_Display">Ready to play?</span></button>            
             <button id="startButton">Start!</button>
 
@@ -80,18 +80,6 @@ var questionsArr = [
     ];
     
 // * // TODO a function for loop to select q1, q2, etc.
-
-
-
-// Select from questionsArr, display matching options in buttons.
-// * // dynamically create buttons and display matching optionsArr.
-// If win/lose/timerOut, hide buttons, display answer in question_Display and pic/gif. 5 second time out to nextRound.
-    
-    // if (correct++ || incorrect++ || timeOut) {
-    //     displayButtons(); //Hide buttons
-    //     $("question_Display").replaceWith("questionArr.q1") // display answer in question_Display
-    // };
-
 // * // BONUS create a function random choice array selector q1-q9.
 // * // BONUS add catagories 
 
@@ -106,47 +94,96 @@ var questionsArr = [
             // only show after start is pressed
             $("#question_Display").text(questionsArr[0].prompt)
             $("#button0_Display").text(questionsArr[0].answers) // Create for loop to dynamically create buttons and insert text
-
-
-// Select class of buttons "for loop to addClass" 'visible' to make multi-choice buttons appear.
-        displayButtons(); // toggleButtons?? 
-            // function displayButtons() { 
-            //     var buttons = $("button");
-            //     for (var i = 0; i < buttons.length; ++i) {
-            //     buttons[i].classList.toggle('visible');
-            //     }
-            // }
-
+            displayButtons(); // toggleButtons 
+       
 // Select class of hidden, removeClass 'hidden' to make progress bar and time appear.
         var showProgress; 
             showProgress = $(".hidden").removeClass('hidden');
 
 
+// Timer for the page
+        
+
+
+
+
 ///// Progress indicator with count down /////
-        ProgressCountdown(20, 'pageBeginCountdown', 'pageBeginCountdownText').then(value => alert(`Time is up!`));
+        // ProgressCountdown(20, 'pageBeginCountdown', 'pageBeginCountdownText').then(value => alert(`Time is up!`));
 
-        function ProgressCountdown(timeleft, bar, text) {
-        return new Promise((resolve, reject) => {
-            var countdownTimer = setInterval(() => {
-            timeleft--;
+        // function ProgressCountdown(timeleft, bar, text) {
+        // return new Promise((resolve, reject) => {
+        //     var countdownTimer = setInterval(() => {
+        //     timeleft--;
 
-            document.getElementById(bar).value = timeleft;
-            document.getElementById(text).textContent = timeleft;
+        //     document.getElementById(bar).value = timeleft;
+        //     document.getElementById(text).textContent = timeleft;
 
-            if (timeleft <= 0) {
-                clearInterval(countdownTimer);
-                resolve(true);   
+        //     if (timeleft <= 0 || incorrect) {
+        //         clearInterval(countdownTimer);
+        //         resolve(true);   
                 
-            }
-            }, 1000);
-        });
-        }
+        //     }
+        //     }, 1000);
+        // });
+        // }
 
 ///// FUNCTIONS /////
 
+
+
+
+// //  Variable that will hold our setInterval that runs the stopwatch
+// var intervalId;
+
+// // prevents the clock from being sped up unnecessarily
+// var clockRunning = false;
+
+// // Our stopwatch object
+// var stopwatch = {
+
+//   time: 0,
+//   lap: 1,
+
+//   reset: function() {
+
+//     stopwatch.time = 0;
+//     stopwatch.lap = 1;
+
+//     // DONE: Change the "display" div to "00."
+//     $("#timer").text("00");
+
+//     // DONE: Empty the "laps" div.
+//     $("#laps").text("");
+//   },
+//   start: function() {
+
+//     // DONE: Use setInterval to start the count here and set the clock to running.
+//     if (!clockRunning) {
+//       intervalId = setInterval(stopwatch.count, 1000);
+//       clockRunning = true;
+//     }
+//   },
+//   stop: function() {
+
+//     // DONE: Use clearInterval to stop the count here and set the clock to not be running.
+//     clearInterval(intervalId);
+//     clockRunning = false;
+//   },
+//   count: function() {
+
+//     // DONE: decrement time by 1.
+//     stopwatch.time--;
+//   }
+// };
+
+
+
+
+
+
     function displayButtons() { // Hides/displays buttons
         var buttons = $("button");
-        for (var i = 0; i < buttons.length; ++i) {
+        for (var i = 0; i < buttons.length; i++) {
         buttons[i].classList.toggle('visible');
         }
     }
@@ -155,7 +192,7 @@ var questionsArr = [
 // TODO create dynamic array selector at random.
 const qArr0 = questionsArr[0].choices //output renderButtons to buttonContainer div
 
-// console.log("line 170: " + qArr0.length)
+// console.log(qArr0.length)
 
 renderButtons() // May need to be moved
     function renderButtons() { // Create 4 buttons with for loop
@@ -181,13 +218,26 @@ console.log("CorrectIndex: " + correctIndex)
 
 $('.button').click(function() {
     var d = $(this).data('index')
-    // button.buttonindex
-    console.log(d);
+    //TODO stop timer
+    // console.log(d);
 
-    if (d === correctIndex)
-    // console.log("YES")
-    alert("Correct!")
-    else alert("Sorry that's not the answer")
+    if (d === correctIndex) {
+        // console.log("YES")
+        alert("Correct!");
+        correct++;
+        console.log("Correct: " + correct);
+    }
+    else if (d != correctIndex) { 
+            alert("Sorry that's not the answer");
+            incorrect++;
+            console.log("Incorrect: " + incorrect);
+    }
+    else {  
+            alert("You did not make a selection.")
+            unanswered++;
+            console.log(unanswered);
+    }
+
 });
 
 
