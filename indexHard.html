@@ -49,7 +49,6 @@ $(document).ready()
 
 
 ///// ARRAYS /////  // Array to hold questions, choices, answers
-
 var questionsArr = [
 		{
 			prompt: 'If you are shooting a photo and want to get a greater depth of field in the image, Which F stop would you shoot?',
@@ -80,7 +79,7 @@ var questionsArr = [
 		}
     ];
     
-// need for loop to select question index
+// * // TODO a function for loop to select q1, q2, etc.
 
 
 
@@ -92,8 +91,6 @@ var questionsArr = [
     //     displayButtons(); //Hide buttons
     //     $("question_Display").replaceWith("questionArr.q1") // display answer in question_Display
     // };
-
-// * // TODO a function for loop to select q1, q2, etc.
 
 // * // BONUS create a function random choice array selector q1-q9.
 // * // BONUS add catagories 
@@ -112,7 +109,7 @@ var questionsArr = [
 
 
 // Select class of buttons "for loop to addClass" 'visible' to make multi-choice buttons appear.
-        displayButtons();
+        displayButtons(); // toggleButtons?? 
             // function displayButtons() { 
             //     var buttons = $("button");
             //     for (var i = 0; i < buttons.length; ++i) {
@@ -126,25 +123,24 @@ var questionsArr = [
 
 
 ///// Progress indicator with count down /////
-            ProgressCountdown(20, 'pageBeginCountdown', 'pageBeginCountdownText').then(value => alert(`Time is up!`));
+        ProgressCountdown(20, 'pageBeginCountdown', 'pageBeginCountdownText').then(value => alert(`Time is up!`));
 
-            function ProgressCountdown(timeleft, bar, text) {
-            return new Promise((resolve, reject) => {
-                var countdownTimer = setInterval(() => {
-                timeleft--;
+        function ProgressCountdown(timeleft, bar, text) {
+        return new Promise((resolve, reject) => {
+            var countdownTimer = setInterval(() => {
+            timeleft--;
 
-                document.getElementById(bar).value = timeleft;
-                document.getElementById(text).textContent = timeleft;
+            document.getElementById(bar).value = timeleft;
+            document.getElementById(text).textContent = timeleft;
 
-                if (timeleft <= 0) {
-                    clearInterval(countdownTimer);
-                    resolve(true);   
-                    // resetRound() // select new set of questions from  
-                    
-                }
-                }, 1000);
-            });
+            if (timeleft <= 0) {
+                clearInterval(countdownTimer);
+                resolve(true);   
+                
             }
+            }, 1000);
+        });
+        }
 
 ///// FUNCTIONS /////
 
@@ -156,8 +152,8 @@ var questionsArr = [
     }
 
 
-
-var qArr0 = questionsArr[0].choices //output renderButtons to buttonContainer div
+// TODO create dynamic array selector at random.
+const qArr0 = questionsArr[0].choices //output renderButtons to buttonContainer div
 
 // console.log("line 170: " + qArr0.length)
 
@@ -171,18 +167,37 @@ renderButtons() // May need to be moved
             var a = $("<button>");
             // // Adding a class of movie to our button
             a.addClass("button fadeIn");
+            // Adding a data-attribute
+            a.attr("data-index", [i]);
             // Providing the initial button text
             a.text(qArr0[i]);
             // Adding the button to the HTML
             $("#buttonContainer").append(a);
-        }
+        } // TODO add index number to each button
     }
-// Add index number to each button to compare with array index
+
+const correctIndex = questionsArr[0].correctIndex
+console.log("CorrectIndex: " + correctIndex)
+
+$('.button').click(function() {
+    var d = $(this).data('index')
+    // button.buttonindex
+    console.log(d);
+
+    if (d === correctIndex)
+    // console.log("YES")
+    alert("Correct!")
+    else alert("Sorry that's not the answer")
+});
 
 
 
 
-    }); // Close $("#startButton").click(function()
+
+
+// TODO Add index number to each button to compare with array index
+
+    }); // CLOSE $("#startButton").click(function()
 
 
 
@@ -192,39 +207,17 @@ renderButtons() // May need to be moved
 // (this is necessary otherwise we will have repeat buttons)
 // $("#buttons-view").empty();
 
-// Looping through the array
-
-
 
 
 //////////      PSEUDOCODE      //////////
 
 // Trivia game with multple choice answers and count down timer for each round, timer stops when guess is made or time runs out.
-// Create varibles; timer, win, lose, unanswered
+// Create varibles; timer, count, unanswered
 // The game begins on a Start page. Once start is clicked than the game begins "initializedGame(), resetRount".
 // initializedGame() set all varibles timer, win, lose, unanswered
 // resetRound will display new questions and possible multple choice answers to click, timer starts counting down from 30 seconds.
 // Only one answer is "true". If true or false or if out of time, stop timer. Display if click matches answer display "Correct!" and
 // display answer and gif for x seconds, resetRound(), else display "Incorrect. The correct answer was:" display answer and gif for x seconds, resetRound(). 
-// 
-//
-// question_Display use switches and array for multiple choice?   [
-//                                                                  q:Question, a:Answer,
-//                                                                  q:Question, a:Answer,
-//                                                                  q:Question, a:Answer,
-//                                                                ]
-// 
-// assign 
-
-
-
-
-
-
-// // Move Captain Planet Leftward  //// Use as template
-//     $(".left-button").on("click", function() { // click on "left-button" perform fucntion
-//     $(".captain-planet").animate({ left: "-=200px" }, "normal"); // Select "captain-planet", move left -200px.
-// });
 
 
 
