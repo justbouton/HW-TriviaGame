@@ -8,200 +8,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">  
-    <title>Trivia!</title>
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css">   -->
+    <title>Photo Trivia!</title>
+
 
   </head>
 
-  <body class="fadeIn">
+<body class="fadeIn">
 
-    <!-- The HTML is done for us. -->
-        <div class="container">
-            <h1><span id="timer">Photography Trivia!</span></h1>
-            <br/>
-            <p class="hidden">Time: <span id="pageBeginCountdownText">15 </span> seconds</p>
-            <progress value="15" max="15" class="hidden" id="pageBeginCountdown"></progress>
-            <span id="question_Display">Ready to play?</span></button>            
-            <button id="startButton">Start!</button>
+  <div id="quiz"></div>
+  <button id="submit">Submit Quiz</button>
+  <div id="results"></div>
 
-            <button class="button fadeIn" id="button0"><span id="button0_Display">Button0</span></button>
-            <button class="button fadeIn" id="button1"><span id="button1_Display">Button1</span></button>
-            <button class="button fadeIn" id="button2"><span id="button2_Display">Button2</span></button>
-            <button class="button fadeIn" id="button3"><span id="button3_Display">Button3</span></button>
-        </div>
-    <br>
-
-    
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<script type="text/javascript">
-
-// Waits until the page has loaded all content before running below:
-$(document).ready()
+</body>
 
 
-///// VARIBLES /////
-    var correct = 0;
-    var incorrect = 0;
-    var unanswered = 0;
-    var timeOut;
+<script>
 
+// Trivia game with multple choice questions, count down timer, timer stops when count down is complete or submit is press.
 
-// Select from questionsArr, display matching options in buttons.
-// * // dynamically create buttons and display matching optionsArr.
-// If win/lose/timerOut, hide buttons, display answer in question_Display and pic/gif. 5 second time out to nextRound.
-    
-    if (correct++ || incorrect++) {
-        displayButtons(); //Hide buttons
-        $("question_Display").replaceWith("questionArr.q1") // display answer in question_Display
-    };
+function countdown() {
+    if (time <= 0){
+    //do this
+    }
+    else {
 
-// Once an array set is selected display.
-// * // Create a function that displays all q1 arrs to corrisponding button.
-function questionSelection() {
-    return questionSelection
+    }
 }
-// * // Create a function for loop to select q1, q2, etc.
-// * // Create a function to update display.
 
-// * // BONUS create a function random choice array selector q1-q9.
-// * // BONUS add catagories 
-var q1Arr = questionsArr.q1 optionsArr.q1 answersArr.q1
+// Create varibles; timer, correct, incorrect, unanswered.
+var correct;
+var incorrect;
+var unanswered;
 
-///// ARRAYS /////  // Array to hold questions, choices, answers
-var questionsArr = {
-        q1: 'If you are shooting a photo and want to get a greater depth of field in the image, Which F stop would you shoot?'
-        // q2: '',
-        // q3: '',
-        // q4: '',
-        // q5: '',
-        // q6: '',
-        // q7: '',
-        // q8: '',
-        // q9: '',
-};  
-var optionsArr = {
-        q1: 'F2.8, F16, F7.1, F4'
-//         // q2: '',
-//         // q3: '',
-//         // q4: '',
-//         // q5: '',
-//         // q6: '',
-//         // q7: '',
-//         // q8: '',
-//         // q9: '',
-}; 
-var answersArr = {
-        q1: 'F16'        
-//         // q2: '',
-//         // q3: '',
-//         // q4: '',
-//         // q5: '',
-//         // q6: '',
-//         // q7: '',
-//         // q8: '',
-//         // q9: '',
-    };
-//     imageArr: {
-//         q1: 'assets/images/fstop.jpg'
-//         // q2: '',
-//         // q3: '',
-//         // q4: '',
-//         // q5: '',
-//         // q6: '',
-//         // q7: '',
-//         // q8: '',
-//         // q9: '',
-//     };
+// The game begins on a Start page with one button "Start". Once start is clicked the game begins "initializedGame().
 
-console.log(questionsArr.q1)
-console.log(optionsArr.q1)
-console.log(answersArr.q1)
-// console.log(imageArr.q1)
+// Display questions dynamically create multple choice answers as radio buttons, timer starts counting down from 60 seconds.
 
-$("#question_Display").text(questionsArr.q1) // for loop to push each question to button0-3
+// When time hits 0 or submit is pressed, gather answers, show results of correct, incorrect, unanswered.
 
 
 
 
-// Clicking start; initalize the countDownTimer, fade the start button, make 4 buttons appears as place holders for each question.
-    $("#startButton").click(function() { 
-        
 
-// On click select #startButton addClass 'invisible' to hide start button
-        var hideStart; 
-        hideStart = $("#startButton").addClass('invisible');
-        //     hideStart = document.querySelector("#startButton")
-        //     hideStart.classList.add('invisible');        
-
-// Select class of buttons "for loop to addClass" 'visible' to make multi-choice buttons appear.
-        displayButtons();
-            // function displayButtons() { 
-            //     var buttons = $("button");
-            //     for (var i = 0; i < buttons.length; ++i) {
-            //     buttons[i].classList.toggle('visible');
-            //     }
-            // }
-
-// Select class of hidden, removeClass 'hidden' to make progress bar and time appear.
-        var showProgress; 
-        showProgress = $(".hidden").removeClass('hidden');
-        //     showProgress = document.querySelector(.")    //javascript code
-        //     showProgress.classList.toggle('hidden');    //javascript code
-
-
-///// Progress indicator with count down /////
-            ProgressCountdown(15, 'pageBeginCountdown', 'pageBeginCountdownText').then(value => alert(`Time is up!`));
-
-            function ProgressCountdown(timeleft, bar, text) {
-            return new Promise((resolve, reject) => {
-                var countdownTimer = setInterval(() => {
-                timeleft--;
-
-                document.getElementById(bar).value = timeleft;
-                document.getElementById(text).textContent = timeleft;
-
-                if (timeleft <= 0) {
-                    clearInterval(countdownTimer);
-                    resolve(true);                
-                }
-                }, 1000);
-            });
-            }
-
-///// FUNCTIONS /////
-
-    function displayButtons() { // Hides/displays buttons
-        var buttons = $("button");
-        for (var i = 0; i < buttons.length; ++i) {
-        buttons[i].classList.toggle('visible');
-        }
-    }
-
-    //this function needs to pick q1, on resetRound pick q2 and so on. 0 left end game.
-    function renderQuestions() {
-        $("#question_Display").text(questionsArr.q1) // for loop to push each question to button0-3
-
-    }
-
-
-    });
 
 
 
 
 //////////      PSEUDOCODE      //////////
 
-// Trivia game with multple choice answers and count down timer for each round, timer stops when guess is made or time runs out.
-// Create varibles; timer, win, lose, unanswered
-// The game begins on a Start page. Once start is clicked than the game begins "initializedGame(), resetRount".
-// initializedGame() set all varibles timer, win, lose, unanswered
-// resetRound will display new questions and possible multple choice answers to click, timer starts counting down from 30 seconds.
-// Only one answer is "true". If true or false or if out of time, stop timer. Display if click matches answer display "Correct!" and
-// display answer and gif for x seconds, resetRound(), else display "Incorrect. The correct answer was:" display answer and gif for x seconds, resetRound(). 
-// 
-//
+// Trivia game with multple choice questions, count down timer, timer stops when count down is complete or submit is press.
+// Create varibles; timer, correct, incorrect, unanswered.
+// The game begins on a Start page with one button "Start". Once start is clicked the game begins "initializedGame().
+// Display questions dynamically create multple choice answers as radio buttons, timer starts counting down from 60 seconds.
+// When time hits 0 or submit is pressed, gather answers, show results of correct, incorrect, unanswered.
+
+
+
+
+// EXTRA
+
+//       function renderButtons() {
+
+    // // Deleting the movies prior to adding new movies
+    // // (this is necessary otherwise we will have repeat buttons)
+    // $("#buttons-view").empty();
+    
+    // // Looping through the array of movies
+    // for (var i = 0; i < movies.length; i++) {
+    
+    //   // Then dynamicaly generating buttons for each movie in the array
+    //   // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
+    //   var a = $("<button>");
+    //   // Adding a class of movie to our button
+    //   a.addClass("movie");
+    //   // Adding a data-attribute
+    //   a.attr("data-name", movies[i]);
+    //   // Providing the initial button text
+    //   a.text(movies[i]);
+    //   // Adding the button to the HTML
+    //   $("#buttons-view").append(a);
+    // }
+    // }
 
 </script>
 

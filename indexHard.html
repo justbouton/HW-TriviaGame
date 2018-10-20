@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">  
+    <title>Trivia!</title>
+
+  </head>
+
+  <body class="fadeIn">
+
+        <div class="container">
+            <h1><span id="timer">Photography Trivia!</span></h1>
+            <br/>
+            <p class="hidden">Time: <span id="pageBeginCountdownText">10 </span> seconds</p>
+            <progress value="10" max="10" class="hidden" id="pageBeginCountdown"></progress>
+            <span id="question_Display">Ready to play?</span></button>            
+            <button id="startButton">Start!</button>
+
+            <div id="buttonContainer"></div>
+            <!-- <button class="button fadeIn" id="button0"><span id="button0_Display">Button0</span></button>
+            <button class="button fadeIn" id="button1"><span id="button1_Display">Button1</span></button>
+            <button class="button fadeIn" id="button2"><span id="button2_Display">Button2</span></button>
+            <button class="button fadeIn" id="button3"><span id="button3_Display">Button3</span></button> -->
+        </div>
+    <br>
+
+    
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+// Waits until the page has loaded all content before running below:
+$(document).ready()
+
+
+///// VARIBLES /////
+    var correct = 0;
+    var incorrect = 0;
+    var unanswered = 0;
+    var timeOut;
+
+
+///// ARRAYS /////  // Array to hold questions, choices, answers
+
+var questionsArr = [
+		{
+			prompt: 'If you are shooting a photo and want to get a greater depth of field in the image, Which F stop would you shoot?',
+			choices: [
+                    'F2.8', 
+                    'F16', 
+                    'F7.1', 
+                    'F4'
+			],
+			correctIndex: 1
+		},{
+			prompt: 'What is the typical shutter speed when using a flash?',
+			choices: [
+                    '1/200', 
+                    '1/60', 
+                    '1/1000', 
+                    '1/30'
+			],
+			correctIndex: 1
+		},{
+			prompt: '?',
+			choices: [
+				'1',
+				'2',
+				'3'
+			],
+			correctIndex: 2
+		}
+    ];
+    
+// need for loop to select question index
+
+
+
+// Select from questionsArr, display matching options in buttons.
+// * // dynamically create buttons and display matching optionsArr.
+// If win/lose/timerOut, hide buttons, display answer in question_Display and pic/gif. 5 second time out to nextRound.
+    
+    // if (correct++ || incorrect++ || timeOut) {
+    //     displayButtons(); //Hide buttons
+    //     $("question_Display").replaceWith("questionArr.q1") // display answer in question_Display
+    // };
+
+// Once an array set is selected display.
+// * // Create a function that displays all q1 arrs to corrisponding button.
+    // function questionSelection() {
+    //     return questionSelection
+    // }
+// * // Create a function for loop to select q1, q2, etc.
+// * // Create a function to update display.
+
+// * // BONUS create a function random choice array selector q1-q9.
+// * // BONUS add catagories 
+
+
+
+// $("#question_Display").text(questionsArr.q1) // for loop to push each question to button0-3
+
+
+// Clicking start; initalize the countDownTimer, fade the start button, make 4 buttons appears as place holders for each question.
+    $("#startButton").click(function() { 
+        
+
+// On click select #startButton addClass 'invisible' to hide start button
+        // var hideStart; 
+            hideStart = $("#startButton").addClass('invisible');
+            // only show after start is pressed
+            $("#question_Display").text(questionsArr[0].prompt)
+            $("#button0_Display").text(questionsArr[0].answers) // Create for loop to dynamically create buttons and insert text
+
+
+// Select class of buttons "for loop to addClass" 'visible' to make multi-choice buttons appear.
+        displayButtons();
+            // function displayButtons() { 
+            //     var buttons = $("button");
+            //     for (var i = 0; i < buttons.length; ++i) {
+            //     buttons[i].classList.toggle('visible');
+            //     }
+            // }
+
+// Select class of hidden, removeClass 'hidden' to make progress bar and time appear.
+        var showProgress; 
+            showProgress = $(".hidden").removeClass('hidden');
+
+
+///// Progress indicator with count down /////
+            // ProgressCountdown(10, 'pageBeginCountdown', 'pageBeginCountdownText').then(value => alert(`Time is up!`));
+
+            // function ProgressCountdown(timeleft, bar, text) {
+            // return new Promise((resolve, reject) => {
+            //     var countdownTimer = setInterval(() => {
+            //     timeleft--;
+
+            //     document.getElementById(bar).value = timeleft;
+            //     document.getElementById(text).textContent = timeleft;
+
+            //     if (timeleft <= 0) {
+            //         clearInterval(countdownTimer);
+            //         resolve(true);                
+            //     }
+            //     }, 1000);
+            // });
+            // }
+
+///// FUNCTIONS /////
+
+    function displayButtons() { // Hides/displays buttons
+        var buttons = $("button");
+        for (var i = 0; i < buttons.length; ++i) {
+        buttons[i].classList.toggle('visible');
+        }
+    }
+
+
+
+var qArr0 = questionsArr[0].choices //output renderButtons to buttonContainer div
+
+// console.log("line 170: " + qArr0.length)
+
+renderButtons()
+    function renderButtons() { // Create 4 buttons with for loop
+        var buttons = $("button");
+        for (var i = 0; i < qArr0.length; i++) {
+             // Then dynamicaly generating buttons for each item in the array
+            // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
+            // console.log(qArr0[i])
+            var a = $("<button>");
+            // // Adding a class of movie to our button
+            a.addClass("button fadeIn");
+            // // Adding a data-attribute
+            // a.attr("data-name", movies[i]);
+            // Providing the initial button text
+            a.text(qArr0[i]);
+            // Adding the button to the HTML
+            $("#buttonContainer").append(a);
+        }
+    }
+
+    });
+
+
+
+
+// Deleting the movies prior to adding new movies
+// (this is necessary otherwise we will have repeat buttons)
+// $("#buttons-view").empty();
+
+// Looping through the array
+
+
+
+
+//////////      PSEUDOCODE      //////////
+
+// Trivia game with multple choice answers and count down timer for each round, timer stops when guess is made or time runs out.
+// Create varibles; timer, win, lose, unanswered
+// The game begins on a Start page. Once start is clicked than the game begins "initializedGame(), resetRount".
+// initializedGame() set all varibles timer, win, lose, unanswered
+// resetRound will display new questions and possible multple choice answers to click, timer starts counting down from 30 seconds.
+// Only one answer is "true". If true or false or if out of time, stop timer. Display if click matches answer display "Correct!" and
+// display answer and gif for x seconds, resetRound(), else display "Incorrect. The correct answer was:" display answer and gif for x seconds, resetRound(). 
+// 
+//
+// question_Display use switches and array for multiple choice?   [
+//                                                                  q:Question, a:Answer,
+//                                                                  q:Question, a:Answer,
+//                                                                  q:Question, a:Answer,
+//                                                                ]
+// 
+// assign 
+
+
+
+
+
+
+// // Move Captain Planet Leftward  //// Use as template
+//     $(".left-button").on("click", function() { // click on "left-button" perform fucntion
+//     $(".captain-planet").animate({ left: "-=200px" }, "normal"); // Select "captain-planet", move left -200px.
+// });
+
+
+
+
+// Answers to question 1-4
+// $(".answer1").on("click", function() {
+//         // $("$this.")??
+//     });
+
+</script>
+
+</body>
+</html>
