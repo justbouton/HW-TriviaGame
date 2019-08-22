@@ -9,7 +9,6 @@ var incorrect = 0;
 var unanswered = 0;
 var qSelector = 0;
 
-
 ///// ARRAYS /////  // Array to hold questions, choices, answers
 var questionsArr = [
     {
@@ -82,19 +81,7 @@ var stopwatch = {
     }
 };
 
-
-
-    //TODO Create question "qSelector" to display "++"" each question
-    var qArr = questionsArr[qSelector].choices //output renderButtons to buttonContainer div
-
-    // TODO create dynamic array selector at random.
-    ///// TEST FOR RANDOM SELECTION
-    // var arr = new Array('a', 'b', 'c', 'd', 'e');
-    // document.write("Test " + arr[Math.floor(Math.random() * ((arr.length - 1) - 0 + 1))]);
-    // TODO create dynamic array selector at random
-    // var qArr = questionsArr[Math.floor(Math.random() * (questionsArr.length - 1))].choices 
-
-    console.log("qSelector: " + qSelector)    
+  
 
 
 
@@ -112,8 +99,21 @@ var stopwatch = {
 
     function renderButtons() { // Create buttons with for loop
 
+    //TODO Create question "qSelector" to display "++"" each question
+    var qArr = questionsArr[qSelector].choices //output renderButtons to buttonContainer div
+
+    // TODO create dynamic array selector at random.
+    // selectQuestion()
+    ///// TEST FOR RANDOM SELECTION
+    // var arr = new Array('a', 'b', 'c', 'd', 'e');
+    // document.write("Test " + arr[Math.floor(Math.random() * ((arr.length - 1) - 0 + 1))]);
+    // TODO create dynamic array selector at random
+    // var qArr = questionsArr[Math.floor(Math.random() * (questionsArr.length - 1))].choices 
+
+
+        $(".button").empty();
         $("#buttonContainer").empty(); // Clear container before dynamically creating content
-    console.log("qArr length: " + qArr)
+    console.log("qArr: " + qArr)
 
         var buttons = $("button");
         for (var i = 0; i < qArr.length; i++) {
@@ -133,7 +133,7 @@ var stopwatch = {
         $('.button').click(function () {
             var userChoice = $(this).data('index')
             //TODO stop timer
-            stopwatch.stop
+            stopwatch.stop()
             // console.log(d);
         
             if (userChoice === correctIndex) { // compare userChoice to correctIndex if true
@@ -141,24 +141,20 @@ var stopwatch = {
                 // alert("Correct!"); // WORKING
                 correct++;
                 console.log("Correct: " + correct);
-                alert("Correct!")
-                stopwatch.stop()
-        
+                alert("Correct!")          
             }
             else if (userChoice != correctIndex) { // compare userChoice to correctIndex if false
                 // alert("Sorry that's not the answer"); // WORKING
                 incorrect++;
                 console.log("Incorrect: " + incorrect);
                 alert("Sorry that's incorrect.")// TODO //
-                stopwatch.stop()
-            }
+                            }
             else {  // userChoice is not true or false
                 alert("You did not make a selection.")
                 unanswered++;
                 console.log(unanswered);
                 alert("Better luck next question.")
-                stopwatch.stop()
-            }
+                            }
             console.log("qSelector++ & renderButtons")
             qSelector++;
             console.log("qSelector: " + qSelector)    
@@ -177,8 +173,8 @@ $("#startButton").click(function () {
 
     hideStart = $("#startButton").addClass('invisible');
     // only show after start is pressed
-    // $("#question_Display").text(questionsArr[qSelector].prompt)
-    // $("#button0_Display").text(questionsArr[qSelector].answers) // Create for loop to dynamically create buttons and insert text
+    $("#question_Display").text(questionsArr[qSelector].prompt)
+    $("#button0_Display").text(questionsArr[qSelector].answers) // Create for loop to dynamically create buttons and insert text
     displayButtons(); // toggleButtons 
     renderButtons() // May need to be moved
     stopwatch.start(); // start countDown
