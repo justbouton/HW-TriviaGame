@@ -1,53 +1,48 @@
 
 // Waits until the page has loaded all content before running below:
-$(document).ready()
+$(document).ready(function() {
 
 
 ///// VARIBLES /////
-    var correct = 0;
-    var incorrect = 0;
-    var unanswered = 0;
-    var countDown = 0;
+var correct = 0;
+var incorrect = 0;
+var unanswered = 0;
+var qSelector = 0;
 
 
 ///// ARRAYS /////  // Array to hold questions, choices, answers
 var questionsArr = [
-		{
-			prompt: 'If you are shooting a photo and want to get a greater depth of field in the image, Which F stop would you shoot?',
-			choices: [
-                    'F2.8', 
-                    'F16', 
-                    'F7.1', 
-                    'F4'
-			],
-			correctIndex: 1
-		},{
-			prompt: 'What is the typical shutter speed when using a flash?',
-			choices: [
-                    '1/200', 
-                    '1/60', 
-                    '1/1000', 
-                    '1/30'
-			], 
-			correctIndex: 1
-		},{
-			prompt: '?',
-			choices: [
-				'1',
-				'2',
-				'3'
-			],
-			correctIndex: 2
-		}
-    ];
-    
-// * // TODO a function for loop to select q1, q2, etc.
+    {
+        prompt: 'What command do you use to make a new directory with a sub folder?',
+        choices: [
+            'mkdir -p',
+            'mkdir -d',
+            'makedir'
+        ],
+        correctIndex: 0
+    }, {
+        prompt: 'How do you change directory?',
+        choices: [
+            'changdir',
+            'cd',
+            'changedirectory'
+        ],
+        correctIndex: 1
+    }, {
+        prompt: 'What command do you use to delete a directory?',
+        choices: [
+            'remove',
+            'rm',
+            'delete'
+        ],
+        correctIndex: 1
+    }
+];
+
 // * // BONUS create a function random choice array selector q1-q9.
 // * // BONUS add catagories 
 
 
-
-// TODO CREATE TIMER
 //  Variable that will hold our setInterval that runs the stopwatch
 var intervalId;
 
@@ -56,121 +51,149 @@ var clockRunning = false;
 
 // Our stopwatch object
 var stopwatch = {
-  time: 20,
+    time: 20,
 
-  reset: function() {
-    stopwatch.time = 20;
-    // DONE: Change the "timer" div to "20."
-    $("#timer").text("20");
-  },
+    reset: function () {
+        stopwatch.time = 20;
+        // DONE: Change the "timer" div to "20."
+        $("#timer").text("20");
+    },
 
-  start: function() {
-    // DONE: Use setInterval to start the count here and set the clock to running.
-    if (!clockRunning) {
-      intervalId = setInterval(stopwatch.count, 1000);
-      clockRunning = true;
+    start: function () {
+        // DONE: Use setInterval to start the count here and set the clock to running.
+        if (!clockRunning) {
+            intervalId = setInterval(stopwatch.count, 1000);
+            clockRunning = true;
+        }
+    },
+
+    stop: function () {
+        // DONE: Use clearInterval to stop the count here and set the clock to not be running.
+        clearInterval(intervalId);
+        clockRunning = false;
+    },
+
+    count: function () {
+        // DONE: decrement time by 1, remember we cant use "this" here.
+        stopwatch.time--;
+        // DONE: Use the variable we just created to show the converted time in the "timer" div.
+        $("#timer").text(stopwatch.time);
+        console.log(stopwatch.time)
     }
-  },
-
-  stop: function() {
-    // DONE: Use clearInterval to stop the count here and set the clock to not be running.
-    clearInterval(intervalId);
-    clockRunning = false;
-  },
-
-  count: function() {
-    // DONE: decrement time by 1, remember we cant use "this" here.
-    stopwatch.time--;
-    // DONE: Use the variable we just created to show the converted time in the "timer" div.
-    $("#timer").text(stopwatch.time);
-    console.log(stopwatch.time)
-  }
 };
 
 
-// Clicking start; initalize the countDownTimer, fade the start button, make 4 buttons appears as place holders for each question.
-    $("#startButton").click(function() { 
-        
 
-// On click select #startButton addClass 'invisible' to hide start button
-        // var hideStart; 
-            hideStart = $("#startButton").addClass('invisible');
-            // only show after start is pressed
-            $("#question_Display").text(questionsArr[0].prompt)
-            $("#button0_Display").text(questionsArr[0].answers) // Create for loop to dynamically create buttons and insert text
-            displayButtons(); // toggleButtons 
-            stopwatch.start; // start countDown
-       
+    //TODO Create question "qSelector" to display "++"" each question
+    var qArr = questionsArr[qSelector].choices //output renderButtons to buttonContainer div
 
-///// FUNCTIONS /////
+    // TODO create dynamic array selector at random.
+    ///// TEST FOR RANDOM SELECTION
+    // var arr = new Array('a', 'b', 'c', 'd', 'e');
+    // document.write("Test " + arr[Math.floor(Math.random() * ((arr.length - 1) - 0 + 1))]);
+    // TODO create dynamic array selector at random
+    // var qArr = questionsArr[Math.floor(Math.random() * (questionsArr.length - 1))].choices 
+
+    console.log("qSelector: " + qSelector)    
+
+
+
+
+
+    ///// FUNCTIONS /////
 
     function displayButtons() { // Hides/displays buttons
         var buttons = $("button");
         for (var i = 0; i < buttons.length; i++) {
-        buttons[i].classList.toggle('visible');
+            buttons[i].classList.toggle('visible');
         }
     }
 
 
-// TODO create dynamic array selector at random.
-const qArr0 = questionsArr[0].choices //output renderButtons to buttonContainer div
+    function renderButtons() { // Create buttons with for loop
 
-// console.log(qArr0.length)
-
-renderButtons() // May need to be moved
-    function renderButtons() { // Create 4 buttons with for loop
         $("#buttonContainer").empty(); // Clear container before dynamically creating content
+    console.log("qArr length: " + qArr)
+
         var buttons = $("button");
-        for (var i = 0; i < qArr0.length; i++) {
+        for (var i = 0; i < qArr.length; i++) {
             // Then dynamicaly generating buttons for each item in the array
             // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
-            // console.log(qArr0[i])
+            // console.log(qArr[i])
             var a = $("<button>");
             // // Adding a class of movie to our button
             a.addClass("button fadeIn");
             // Adding a data-attribute
-            a.attr("data-index",[i]);
+            a.attr("data-index", [i]);
             // Providing the initial button text
-            a.text(qArr0[i]);
+            a.text(qArr[i]);
             // Adding the button to the HTML
             $("#buttonContainer").append(a);
-        } 
-    }
-
-const correctIndex = questionsArr[0].correctIndex
-console.log("CorrectIndex: " + correctIndex)
-
-        $('.button').click(function() {
-            var d = $(this).data('index')
+        }
+        $('.button').click(function () {
+            var userChoice = $(this).data('index')
             //TODO stop timer
+            stopwatch.stop
             // console.log(d);
-
-            if (d === correctIndex) { // compare d to correctIndex if true
+        
+            if (userChoice === correctIndex) { // compare userChoice to correctIndex if true
                 // console.log("YES")
                 // alert("Correct!"); // WORKING
                 correct++;
                 console.log("Correct: " + correct);
+                alert("Correct!")
+                stopwatch.stop()
+        
             }
-            else if (d != correctIndex) { // compare d to correctIndex if false
-                    // alert("Sorry that's not the answer"); // WORKING
-                    incorrect++;
-                    console.log("Incorrect: " + incorrect);
+            else if (userChoice != correctIndex) { // compare userChoice to correctIndex if false
+                // alert("Sorry that's not the answer"); // WORKING
+                incorrect++;
+                console.log("Incorrect: " + incorrect);
+                alert("Sorry that's incorrect.")// TODO //
+                stopwatch.stop()
             }
-            else {  // d is not true or false
-                    alert("You did not make a selection.")
-                    unanswered++;
-                    console.log(unanswered);
+            else {  // userChoice is not true or false
+                alert("You did not make a selection.")
+                unanswered++;
+                console.log(unanswered);
+                alert("Better luck next question.")
+                stopwatch.stop()
             }
-
+            console.log("qSelector++ & renderButtons")
+            qSelector++;
+            console.log("qSelector: " + qSelector)    
+            renderButtons()
         });
+    }
 
-    }); // CLOSE $("#startButton").click(function()
+    var correctIndex = questionsArr[qSelector].correctIndex
+    console.log("CorrectIndex: " + correctIndex)
+
+
+// Clicking start; initalize the countDownTimer, hides start button, dynamically create X# of buttons, toggle visable.
+$("#startButton").click(function () {
+
+    // On click select #startButton addClass 'invisible' to hide start button
+
+    hideStart = $("#startButton").addClass('invisible');
+    // only show after start is pressed
+    // $("#question_Display").text(questionsArr[qSelector].prompt)
+    // $("#button0_Display").text(questionsArr[qSelector].answers) // Create for loop to dynamically create buttons and insert text
+    displayButtons(); // toggleButtons 
+    renderButtons() // May need to be moved
+    stopwatch.start(); // start countDown
+}); // CLOSE $("#startButton").click(function()
+
+
+});
+
 
 
 //////////      PSEUDOCODE      //////////
 
-// Trivia game with multple choice answers and count down timer for each round, timer stops when guess is made or time runs out.
-// Create varibles; timer, count, unanswered
+// Trivia game with multple choice questions/answers, count down timer for each round, timer stops when button is click or time runs out.
+// Create varibles; timer, count, answered, unanswered
+
 // The game begins on a Start page. Once start is clicked than the game begins "initializedGame(), resetRount".
 // initializedGame() set all varibles timer, win, lose, unanswered
 // resetRound will display new questions and possible multple choice answers to click, timer starts counting down from 30 seconds.
@@ -210,8 +233,17 @@ console.log("CorrectIndex: " + correctIndex)
         //     if (timeleft <= 0 || incorrect) {
         //         clearInterval(countdownTimer);
         //         resolve(true);   
-                
+        //         renderButtons;
+        //         qSelector++;
         //     }
         //     }, 1000);
         // });
         // }
+
+
+
+// Fade in start button, on click hide start button, loop through each item display questions.
+
+// $this button on click compare to answer, if correct make visible, hide question show img or gif, if incorrect show incorrect
+
+
