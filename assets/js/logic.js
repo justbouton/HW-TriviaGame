@@ -98,17 +98,17 @@ var stopwatch = {
 
 
     function renderButtons() { // Create buttons with for loop
+        stopwatch.start()
+        //TODO Create question "qSelector" to display "++"" each question
+        var qArr = questionsArr[qSelector].choices //output renderButtons to buttonContainer div
 
-    //TODO Create question "qSelector" to display "++"" each question
-    var qArr = questionsArr[qSelector].choices //output renderButtons to buttonContainer div
-
-    // TODO create dynamic array selector at random.
-    // selectQuestion()
-    ///// TEST FOR RANDOM SELECTION
-    // var arr = new Array('a', 'b', 'c', 'd', 'e');
-    // document.write("Test " + arr[Math.floor(Math.random() * ((arr.length - 1) - 0 + 1))]);
-    // TODO create dynamic array selector at random
-    // var qArr = questionsArr[Math.floor(Math.random() * (questionsArr.length - 1))].choices 
+        // TODO create dynamic array selector at random.
+        // selectQuestion()
+        ///// TEST FOR RANDOM SELECTION
+        // var arr = new Array('a', 'b', 'c', 'd', 'e');
+        // document.write("Test " + arr[Math.floor(Math.random() * ((arr.length - 1) - 0 + 1))]);
+        // TODO create dynamic array selector at random
+        // var qArr = questionsArr[Math.floor(Math.random() * (questionsArr.length - 1))].choices 
 
 
         $(".button").empty();
@@ -134,6 +134,7 @@ var stopwatch = {
             var userChoice = $(this).data('index')
             //TODO stop timer
             stopwatch.stop()
+            stopwatch.reset()   
             // console.log(d);
         
             if (userChoice === correctIndex) { // compare userChoice to correctIndex if true
@@ -157,7 +158,7 @@ var stopwatch = {
                             }
             console.log("qSelector++ & renderButtons")
             qSelector++;
-            console.log("qSelector: " + qSelector)    
+            console.log("qSelector: " + qSelector) 
             renderButtons()
         });
     }
