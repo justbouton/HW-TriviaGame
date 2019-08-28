@@ -15,19 +15,14 @@
 
   <body class="fadeIn">
 
-        <div class="container">
-            <h1><span id="timer">CLI Trivia!</span></h1>
-            <br/>
-            <p class="hidden">Time: <span id="pageBeginCountdownText">20 </span> seconds</p>
-            <progress value="20" max="20" class="hidden" id="pageBeginCountdown"></progress>
-            <span id="question_Display">Ready to play?</span></button>            
-            <button id="startButton">Start!</button>
-
-            <div id="buttonContainer"></div> <!-- Created dynamic buttons with data -->
-       <!-- <button class="button fadeIn" id="button0"><span id="button0_Display">Button0</span></button>
-            <button class="button fadeIn" id="button1"><span id="button1_Display">Button1</span></button>
-            <button class="button fadeIn" id="button2"><span id="button2_Display">Button2</span></button>
-            <button class="button fadeIn" id="button3"><span id="button3_Display">Button3</span></button> -->
+        <div id="container" class="fadeIn">
+          <h1><span id="timer">CLI Trivia!</span></h1>
+          <div id="sub-container">
+            <div id="quizDisplay" class="fadeIn">
+              <h1 class="fadeIn">Ready to play?</h1>
+              <button id="start" class="fadeIn">Start!</button>
+            </div>
+          </div>
         </div>
     <br>
 

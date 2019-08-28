@@ -1,246 +1,179 @@
+// Trivia game with questions that have multple choice answers, count down timer for each round, timer resets when button is click or time runs out. Display answer and image for three seconds on answer button click. Next round until out of questions. At end display results.
 
-// Waits until the page has loaded all content before running below:
-$(document).ready(function() {
+var card = $("#quizDisplay");
+var countStartNumber = 3;
 
-
-///// VARIBLES /////
-var correct = 0;
-var incorrect = 0;
-var unanswered = 0;
-var qSelector = 0;
-
-///// ARRAYS /////  // Array to hold questions, choices, answers
-var questionsArr = [
+// Array to hold questions, answer, answers and response image
+var questions = [
     {
-        prompt: 'What command do you use to make a new directory with a sub folder?',
-        choices: [
+        question: 'What command is used to make a new directory and sub folders?',
+        answer: [
             'mkdir -p',
             'mkdir -d',
             'makedir'
         ],
-        correctIndex: 0
+        correctAnswer: 'mkdir -p',
+        image: "IMAGE MISSING"
     }, {
-        prompt: 'How do you change directory?',
-        choices: [
+        question: 'How do you change directory in Linux?',
+        answer: [
             'changdir',
             'cd',
             'changedirectory'
         ],
-        correctIndex: 1
+        correctAnswer: 'cd',
+        image: "IMAGE MISSING"
     }, {
-        prompt: 'What command do you use to delete a directory?',
-        choices: [
+        question: 'What command do you use to delete a directory?',
+        answer: [
             'remove',
-            'rm',
-            'delete'
+            'delete',
+            'rm'
         ],
-        correctIndex: 1
-    }
+        correctAnswer: 'rm',
+        image: "IMAGE MISSING"
+    }, {
+    question: 'How do you list contents of a folder?',
+    answer: [
+        'list',
+        'listcontent',
+        'ls'
+    ],
+    correctAnswer: 'ls',
+    image: "IMAGE MISSING"
+    },
 ];
 
-// * // BONUS create a function random choice array selector q1-q9.
-// * // BONUS add catagories 
+// Global varible for timer
+var timer;
 
+var game = {
+// Varibles correct, incorrect
 
-//  Variable that will hold our setInterval that runs the stopwatch
-var intervalId;
+questions: questions,
+questionIndex: 0,
+counter: countStartNumber,
+correct: 0,
+incorrect: 0,
 
-// prevents the clock from being sped up unnecessarily
-var clockRunning = false;
+// Countdown function
+    // Select the text of the counter area
+    // if the couter equals zero
+    // console.log time up
+    // game.timeUP()
+    countdown: function() {
 
-// Our stopwatch object
-var stopwatch = {
-    time: 20,
-
-    reset: function () {
-        stopwatch.time = 20;
-        // DONE: Change the "timer" div to "20."
-        $("#timer").text("20");
-    },
-
-    start: function () {
-        // DONE: Use setInterval to start the count here and set the clock to running.
-        if (!clockRunning) {
-            intervalId = setInterval(stopwatch.count, 1000);
-            clockRunning = true;
+        game.counter--;
+        $("#counter").text(game.counter);
+        if (game.counter === 0) {
+            console.log("OUT OF TIME");
+            game.timeUp();
         }
     },
 
-    stop: function () {
-        // DONE: Use clearInterval to stop the count here and set the clock to not be running.
-        clearInterval(intervalId);
-        clockRunning = false;
-    },
-
-    count: function () {
-        // DONE: decrement time by 1, remember we cant use "this" here.
-        stopwatch.time--;
-        // DONE: Use the variable we just created to show the converted time in the "timer" div.
-        $("#timer").text(stopwatch.time);
-        console.log(stopwatch.time)
-    }
-};
-
-  
-
-
-
-
-
-    ///// FUNCTIONS /////
-
-    function displayButtons() { // Hides/displays buttons
-        var buttons = $("button");
-        for (var i = 0; i < buttons.length; i++) {
-            buttons[i].classList.toggle('visible');
+// LoadQuestion function
+    // setInterval time of game.countdown for one sec.
+    // Select card.html, add h2 with questions[this.questionIndex].question
+    // Loop through each possible answer, card append each button with data-name and display of each possible answer.
+    loadQuestion: function() {
+        // timer setInterval for game countdown 1000ms = 1s 
+        timer = setInterval(game.countdown, 1000);
+        // card 
+        card.html("<h2>" + questions[0].question + "</h2>");
+    
+        for (var i = 0; i < questions[this.questionIndex].answer.length; i++) {
+          card.append("<button class='answer-button' id='button' data-name='" + questions[this.questionIndex].answer[i]
+          + "'>" + questions[this.questionIndex].answer[i] + "</button>");
         }
-    }
+      },
+
+// NextQuestion function
+// game.counter = countStartNumber
+// Select game counter text of counter area
+// game.questionIndex++
+// game.loadQuestion().
+
+// TimeUp function
+// clearInterval(timer)
+// Select game counter html area, replace with 
+// card.html h2 out of time
+// card.append h3 "The correct answer was" + questions[this.questionIndex].correctAnswer 
+// card.append img
+// if game.questionIndex === questions.length -1
+// setTimeout(game.results, 3 * 1000)
+// else setTimeout(game.nextQuestion, 3 * 1000)
+      timeUp: function() {
+
+          clearInterval(timer);
+          
+          $("#counter").html(game.counter);
+
+          card.html("<h2>Out of time!</h2>");
+          card.append("<h3>The correct answer was: " + questions[this.questionIndex].correctAnswer);
+          card.append("<img src='" + questions[this.questionIndex].image + "' />");
+
+          if (game.questionIndex === questions.length -1) {
+              setTimeout(game.results, 3 * 1000);
+          } else {
+              setTimeout(game.nextQuestion, 3 * 1000);
+          }
+      }
+
+// Results function
+// clearInterval(timer)
+// Select card.html, add h2 with All done, here's your results
+// card.append h3 "Correct" game.correct
+// card.append h3 "Incorrect" game.correct
+// card.append h3 "Unaswered" game.correct
+// card.append start over?
+
+// Clicked function(e)
+// clearInterval(timer)
+// If the correct answer is equal to the e.target attribute
+// this.answeredCorrectly()
+// else this.answeredIncorrectly
+
+// AnsweredIncorrectly 
+// When answered clearInterval(timer)
+// game.incorrect++
+// card.html h2 "Sorry that was incorrect"
+// card append h3 "the correct answer was" + questions[game.questionIndex].image
+// If game.questionIndex equals questions.length - 1, setTimeout(game.results, 3 * 1000)
+// Else setTimeout(game.nextQuestion, 3 * 1000)
+
+// AnsweredCorrectly 
+// When answered clearInterval(timer)
+// game.correct++
+// card.html displays h2 Correct!
+// If game.questionIndex equals questions.length - 1, setTimeout(game.results, 3 * 1000)
+// Else setTimeout(game.nextQuestion, 3 * 1000)
+
+// Reset function
+// reset: function() {
+//     this.questionIndex = 0:
+//     this.counter = counterStartNumber:
+//     this.correct = 0;
+//     this.incorrect = 0;
+//     this.loadQuestion();
+// }
 
 
-    function renderButtons() { // Create buttons with for loop
-        stopwatch.start()
-        //TODO Create question "qSelector" to display "++"" each question
-        var qArr = questionsArr[qSelector].choices //output renderButtons to buttonContainer div
+} // End of game var
 
-        // TODO create dynamic array selector at random.
-        // selectQuestion()
-        ///// TEST FOR RANDOM SELECTION
-        // var arr = new Array('a', 'b', 'c', 'd', 'e');
-        // document.write("Test " + arr[Math.floor(Math.random() * ((arr.length - 1) - 0 + 1))]);
-        // TODO create dynamic array selector at random
-        // var qArr = questionsArr[Math.floor(Math.random() * (questionsArr.length - 1))].choices 
+// CLICK EVENTS
 
-
-        $(".button").empty();
-        $("#buttonContainer").empty(); // Clear container before dynamically creating content
-    console.log("qArr: " + qArr)
-
-        var buttons = $("button");
-        for (var i = 0; i < qArr.length; i++) {
-            // Then dynamicaly generating buttons for each item in the array
-            // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
-            // console.log(qArr[i])
-            var a = $("<button>");
-            // // Adding a class of movie to our button
-            a.addClass("button fadeIn");
-            // Adding a data-attribute
-            a.attr("data-index", [i]);
-            // Providing the initial button text
-            a.text(qArr[i]);
-            // Adding the button to the HTML
-            $("#buttonContainer").append(a);
-        }
-        $('.button').click(function () {
-            var userChoice = $(this).data('index')
-            //TODO stop timer
-            stopwatch.stop()
-            stopwatch.reset()   
-            // console.log(d);
-        
-            if (userChoice === correctIndex) { // compare userChoice to correctIndex if true
-                // console.log("YES")
-                // alert("Correct!"); // WORKING
-                correct++;
-                console.log("Correct: " + correct);
-                alert("Correct!")          
-            }
-            else if (userChoice != correctIndex) { // compare userChoice to correctIndex if false
-                // alert("Sorry that's not the answer"); // WORKING
-                incorrect++;
-                console.log("Incorrect: " + incorrect);
-                alert("Sorry that's incorrect.")// TODO //
-                            }
-            else {  // userChoice is not true or false
-                alert("You did not make a selection.")
-                unanswered++;
-                console.log(unanswered);
-                alert("Better luck next question.")
-                            }
-            console.log("qSelector++ & renderButtons")
-            qSelector++;
-            console.log("qSelector: " + qSelector) 
-            renderButtons()
-        });
-    }
-
-    var correctIndex = questionsArr[qSelector].correctIndex
-    console.log("CorrectIndex: " + correctIndex)
-
-
-// Clicking start; initalize the countDownTimer, hides start button, dynamically create X# of buttons, toggle visable.
-$("#startButton").click(function () {
-
-    // On click select #startButton addClass 'invisible' to hide start button
-
-    hideStart = $("#startButton").addClass('invisible');
-    // only show after start is pressed
-    $("#question_Display").text(questionsArr[qSelector].prompt)
-    $("#button0_Display").text(questionsArr[qSelector].answers) // Create for loop to dynamically create buttons and insert text
-    displayButtons(); // toggleButtons 
-    renderButtons() // May need to be moved
-    stopwatch.start(); // start countDown
-}); // CLOSE $("#startButton").click(function()
-
-
+// Start
+$(document).on("click", "#start", function() {
+    $("#sub-container").prepend("<h2>Time remaining: <span id='counter'>30</span> Seconds</h2>")
+    game.loadQuestion();
 });
 
+// Start over
+$(document).on("click", "#startOver", function() {
+    // game.reset()
+});
 
-
-//////////      PSEUDOCODE      //////////
-
-// Trivia game with multple choice questions/answers, count down timer for each round, timer stops when button is click or time runs out.
-// Create varibles; timer, count, answered, unanswered
-
-// The game begins on a Start page. Once start is clicked than the game begins "initializedGame(), resetRount".
-// initializedGame() set all varibles timer, win, lose, unanswered
-// resetRound will display new questions and possible multple choice answers to click, timer starts counting down from 30 seconds.
-// Only one answer is "true". If true or false or if out of time, stop timer. Display if click matches answer display "Correct!" and
-// display answer and gif for x seconds, resetRound(), else display "Incorrect. The correct answer was:" display answer and gif for x seconds, resetRound(). 
-
-
-
-// EMPTY CONTAINER
-// Deleting the buttons prior to adding new buttons
-// (this is necessary otherwise we will have repeat buttons)
-// $("#buttonContainer").empty();
-
-
-// LEARNING THIS
-// Answers to question 1-4
-// $(".answer1").on("click", function() {
-//         // $("$this.")??
-//     });
-
-
-///// Progress indicator with count down /////
-// Select class of hidden, removeClass 'hidden' to make progress bar and time appear.
-        // var showProgress; 
-        //     showProgress = $(".hidden").removeClass('hidden');
-
-        // ProgressCountdown(20, 'pageBeginCountdown', 'pageBeginCountdownText').then(value => alert(`Time is up!`));
-
-        // function ProgressCountdown(timeleft, bar, text) {
-        // return new Promise((resolve, reject) => {
-        //     var countdownTimer = setInterval(() => {
-        //     timeleft--;
-
-        //     document.getElementById(bar).value = timeleft;
-        //     document.getElementById(text).textContent = timeleft;
-
-        //     if (timeleft <= 0 || incorrect) {
-        //         clearInterval(countdownTimer);
-        //         resolve(true);   
-        //         renderButtons;
-        //         qSelector++;
-        //     }
-        //     }, 1000);
-        // });
-        // }
-
-
-
-// Fade in start button, on click hide start button, loop through each item display questions.
-
-// $this button on click compare to answer, if correct make visible, hide question show img or gif, if incorrect show incorrect
-
-
+// Answer clicked
+$(document).on("click", ".answerButton", function(e) {
+    // game.clicked(e);
+});

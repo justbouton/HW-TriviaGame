@@ -7,14 +7,15 @@ body {
     font-family: 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-
 h1 {
-    padding: 20px;
     font-size: 60px;
+}
+h1, h2 {
+    padding: 20px;
     color: white;
 }
 
-.container {
+#container {
     padding: 55px;
     max-width: 750px;
     height: 700px;
@@ -24,14 +25,14 @@ h1 {
     background: rgba(27, 95, 119, 0.9);
 } 
 
-#question_Display {
+#quizDisplay {
     font-size: 40px;
     display: block;
     padding: 25px;    
     color: white;
 }
 
-#startButton {
+#start {
     margin-top: 150px;
     font-size: 40px;
     padding: 20px;
@@ -39,14 +40,16 @@ h1 {
     height: 100px;    
 }
 
-.button {
+.answer-button {
     font-size: 30px;
     padding: 10px;
     width: 600px;
     height: 60px;
     margin: 20px auto;
 }
-
+.answer-button:hover {
+    background: gray;
+}
 .fadeIn {  
 
 animation: fadein 2s;
