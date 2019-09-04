@@ -92,6 +92,12 @@ incorrect: 0,
 // Select game counter text of counter area
 // game.questionIndex++
 // game.loadQuestion().
+      nextQuestion: function() {
+          game.counter = countStartNumber;
+          $("#counter").text(game.counter);
+          game.questionIndex++;
+          game.loadQuestion();
+        },
 
 // TimeUp function
 // clearInterval(timer)
@@ -117,7 +123,7 @@ incorrect: 0,
           } else {
               setTimeout(game.nextQuestion, 3 * 1000);
           }
-      }
+      },
 
 // Results function
 // clearInterval(timer)
@@ -126,12 +132,28 @@ incorrect: 0,
 // card.append h3 "Incorrect" game.correct
 // card.append h3 "Unaswered" game.correct
 // card.append start over?
+      results: function() {
+
+          clearInterval(timer);
+          
+          card.html("<h2>All done, here's your results!</h2>");
+          
+          $("#counter-number").text(game.counter);
+          
+          card.append("<h3>Correct: " + game.correct + "</h3>");
+          card.append("<h3>Incorrect: " + game.incorrect + "</h3>");
+          card.append("<h3>Unanswered: " + (questions.length - (game.incorrect + game.correct)) + "</h3>");
+          card.append("<br><button id='start-over'>Start Over?</button");
+      },
 
 // Clicked function(e)
 // clearInterval(timer)
 // If the correct answer is equal to the e.target attribute
 // this.answeredCorrectly()
 // else this.answeredIncorrectly
+      clicked: function() {
+          
+      },
 
 // AnsweredIncorrectly 
 // When answered clearInterval(timer)
@@ -140,6 +162,9 @@ incorrect: 0,
 // card append h3 "the correct answer was" + questions[game.questionIndex].image
 // If game.questionIndex equals questions.length - 1, setTimeout(game.results, 3 * 1000)
 // Else setTimeout(game.nextQuestion, 3 * 1000)
+      answeredIncorrectly: function() {
+
+      },
 
 // AnsweredCorrectly 
 // When answered clearInterval(timer)
@@ -147,15 +172,18 @@ incorrect: 0,
 // card.html displays h2 Correct!
 // If game.questionIndex equals questions.length - 1, setTimeout(game.results, 3 * 1000)
 // Else setTimeout(game.nextQuestion, 3 * 1000)
+    answeredCorrectly: function() {
+
+    }
 
 // Reset function
-// reset: function() {
-//     this.questionIndex = 0:
-//     this.counter = counterStartNumber:
-//     this.correct = 0;
-//     this.incorrect = 0;
-//     this.loadQuestion();
-// }
+    // reset: function() {
+    //     this.questionIndex = 0:
+    //     this.counter = counterStartNumber:
+    //     this.correct = 0;
+    //     this.incorrect = 0;
+    //     this.loadQuestion();
+    // }
 
 
 } // End of game var
