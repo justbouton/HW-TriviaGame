@@ -6,7 +6,7 @@ var countStartNumber = 10;
 // Array to hold questions, answer, answers and response image
 var questions = [
     {
-        question: 'What command is used to make a new directory and sub folders?',
+        question: 'What command is used to make a new directory with sub folders?',
         answer: [
             'mkdir -p',
             'mkdir -d',
@@ -15,7 +15,7 @@ var questions = [
         correctAnswer: 'mkdir -p',
         image: "IMAGE MISSING"
     }, {
-        question: 'How do you change directory in Linux?',
+        question: 'How do you change directories in Linux?',
         answer: [
             'changdir',
             'cd',
@@ -33,7 +33,7 @@ var questions = [
         correctAnswer: 'rm',
         image: "IMAGE MISSING"
     }, {
-    question: 'How do you list contents of a folder?',
+    question: 'How do you list contents of a directory?',
     answer: [
         'list',
         'listcontent',
