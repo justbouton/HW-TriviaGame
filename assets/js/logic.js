@@ -1,7 +1,7 @@
 // Trivia game with questions that have multple choice answers, count down timer for each round, timer resets when button is click or time runs out. Display answer and image for three seconds on answer button click. Next round until out of questions. At end display results.
 
 var card = $("#quizDisplay");
-var countStartNumber = 3;
+var countStartNumber = 10;
 
 // Array to hold questions, answer, answers and response image
 var questions = [
@@ -116,7 +116,7 @@ incorrect: 0,
 
           card.html("<h2>Out of time!</h2>");
           card.append("<h3>The correct answer was: " + questions[this.questionIndex].correctAnswer);
-          card.append("<img src='" + questions[this.questionIndex].image + "' />");
+        //   card.append("<img src='" + questions[this.questionIndex].image + "' />");
 
           if (game.questionIndex === questions.length -1) {
               setTimeout(game.results, 3 * 1000);
@@ -151,20 +151,40 @@ incorrect: 0,
 // If the correct answer is equal to the e.target attribute
 // this.answeredCorrectly()
 // else this.answeredIncorrectly
-      clicked: function() {
-          
-      },
+    clicked: function(e) {
+
+        clearInterval(timer);
+
+        // alert(questions[this.questionIndex].correctAnswer)
+
+        if ($(e.target).attr("data-name") === questions[this.questionIndex].correctAnswer) {
+            this.answeredCorrectly();
+        } else {
+            this.answeredIncorrectly();
+        };
+    },
 
 // AnsweredIncorrectly 
 // When answered clearInterval(timer)
 // game.incorrect++
 // card.html h2 "Sorry that was incorrect"
-// card append h3 "the correct answer was" + questions[game.questionIndex].image
+// card append h3 "the correct answer was" + questions[game.questionIndex].correctAnswer
 // If game.questionIndex equals questions.length - 1, setTimeout(game.results, 3 * 1000)
 // Else setTimeout(game.nextQuestion, 3 * 1000)
-      answeredIncorrectly: function() {
+    answeredIncorrectly: function() {
+        console.log("Answered Incorrectly")
 
-      },
+        clearInterval(timer);
+        game.incorrect++
+        card.html("<h3>Sorry that was incorrect.</h3>");        
+        card.append("<h2>The correct answer was: " + questions[game.questionIndex].correctAnswer + "</h2>");
+
+        if (game.questionIndex === questions.length - 1) {
+            setTimeout(game.results, 3 * 1000)
+        } else {
+            setTimeout(game.nextQuestion, 3 * 1000)
+        };
+    },
 
 // AnsweredCorrectly 
 // When answered clearInterval(timer)
@@ -173,17 +193,28 @@ incorrect: 0,
 // If game.questionIndex equals questions.length - 1, setTimeout(game.results, 3 * 1000)
 // Else setTimeout(game.nextQuestion, 3 * 1000)
     answeredCorrectly: function() {
+        console.log("Answered Correctly")
 
-    }
+        clearInterval(timer);
+        game.correct++
+        card.html("<h3>Good job!</h3>");
+        card.append("<h2>You answered correctly.</h2>");
+
+        if (game.questionIndex === questions.length - 1) {
+            setTimeout(game.results, 3 * 1000)
+        } else {
+            setTimeout(game.nextQuestion, 3 * 1000)
+        };
+    },
 
 // Reset function
-    // reset: function() {
-    //     this.questionIndex = 0:
-    //     this.counter = counterStartNumber:
-    //     this.correct = 0;
-    //     this.incorrect = 0;
-    //     this.loadQuestion();
-    // }
+    reset: function() {
+        this.questionIndex = 0;
+        this.counter = countStartNumber;
+        this.correct = 0;
+        this.incorrect = 0;
+        this.loadQuestion();
+    }
 
 
 } // End of game var
@@ -191,17 +222,18 @@ incorrect: 0,
 // CLICK EVENTS
 
 // Start
-$(document).on("click", "#start", function() {
+$(document).on("click", ".start", function() {
     $("#sub-container").prepend("<h2>Time remaining: <span id='counter'>30</span> Seconds</h2>")
     game.loadQuestion();
 });
 
 // Start over
-$(document).on("click", "#startOver", function() {
-    // game.reset()
+$(document).on("click", "#start-over", function() {
+    game.reset()
 });
 
 // Answer clicked
-$(document).on("click", ".answerButton", function(e) {
-    // game.clicked(e);
+$(document).on("click", ".answer-button", function(e) {
+    game.clicked(e);
+    console.log("Answer-button CLICKED")
 });

@@ -10,9 +10,14 @@ body {
 h1 {
     font-size: 60px;
 }
+
 h1, h2 {
     padding: 20px;
     color: white;
+}
+
+h3 {
+    font-size: 30px;
 }
 
 #container {
@@ -32,11 +37,19 @@ h1, h2 {
     color: white;
 }
 
-#start {
+.start {
     margin-top: 150px;
     font-size: 40px;
     padding: 20px;
     width: 200px;
+    height: 100px;    
+}
+
+#start-over {
+    margin-top: 150px;
+    font-size: 40px;
+    padding: 20px;
+    width: 250px;
     height: 100px;    
 }
 
