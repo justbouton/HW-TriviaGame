@@ -79,7 +79,7 @@ incorrect: 0,
         // timer setInterval for game countdown 1000ms = 1s 
         timer = setInterval(game.countdown, 1000);
         // card 
-        card.html("<h2>" + questions[0].question + "</h2>");
+        card.html("<h2>" + questions[this.questionIndex].question + "</h2>");
     
         for (var i = 0; i < questions[this.questionIndex].answer.length; i++) {
           card.append("<button class='answer-button' id='button' data-name='" + questions[this.questionIndex].answer[i]
@@ -118,11 +118,8 @@ incorrect: 0,
           card.append("<h3>The correct answer was: " + questions[this.questionIndex].correctAnswer);
         //   card.append("<img src='" + questions[this.questionIndex].image + "' />");
 
-          if (game.questionIndex === questions.length -1) {
-              setTimeout(game.results, 3 * 1000);
-          } else {
-              setTimeout(game.nextQuestion, 3 * 1000);
-          }
+        game.resultsOrNextQuestion();
+
       },
 
 // Results function
@@ -176,14 +173,11 @@ incorrect: 0,
 
         clearInterval(timer);
         game.incorrect++
-        card.html("<h3>Sorry that was incorrect.</h3>");        
-        card.append("<h2>The correct answer was: " + questions[game.questionIndex].correctAnswer + "</h2>");
+        card.html("<h2>Sorry that was incorrect.</h2>");        
+        card.append("<h3>The correct answer was: " + questions[game.questionIndex].correctAnswer + "</h3>");
 
-        if (game.questionIndex === questions.length - 1) {
-            setTimeout(game.results, 3 * 1000)
-        } else {
-            setTimeout(game.nextQuestion, 3 * 1000)
-        };
+        game.resultsOrNextQuestion();
+
     },
 
 // AnsweredCorrectly 
@@ -197,14 +191,11 @@ incorrect: 0,
 
         clearInterval(timer);
         game.correct++
-        card.html("<h3>Good job!</h3>");
-        card.append("<h2>You answered correctly.</h2>");
+        card.html("<h2>Good job!</h2>");
+        card.append("<h3>You answered correctly.</h3>");
 
-        if (game.questionIndex === questions.length - 1) {
-            setTimeout(game.results, 3 * 1000)
-        } else {
-            setTimeout(game.nextQuestion, 3 * 1000)
-        };
+        game.resultsOrNextQuestion();
+
     },
 
 // Reset function
@@ -214,8 +205,15 @@ incorrect: 0,
         this.correct = 0;
         this.incorrect = 0;
         this.loadQuestion();
-    }
+    },
 
+    resultsOrNextQuestion: function () {
+        if (game.questionIndex === questions.length - 1) {
+            setTimeout(game.results, 3 * 1000)
+        } else {
+            setTimeout(game.nextQuestion, 3 * 1000)
+        };
+    }
 
 } // End of game var
 
